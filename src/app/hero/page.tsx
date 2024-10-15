@@ -117,7 +117,7 @@ export default function Hero() {
               transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }}
             >
             <Image
-              src="/memoji1.png"
+              src="/memoji1_e.png"
               alt="Your Memoji"
               width={300}
               height={400}
