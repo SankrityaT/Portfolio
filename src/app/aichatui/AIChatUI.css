@@ -1,0 +1,204 @@
+.ai-chat-ui {
+    width: 100%;
+    max-width: 800px; /* Reduced max width to fit better */
+    height: 70vh;
+    background: linear-gradient(to bottom right, #2c3e50, #3498db);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 12px; /* Rounded corners */
+    margin: 0 auto;
+    overflow: hidden;
+    /* Removed box-shadow to avoid issues */
+  }
+  
+  @media (max-width: 767px) {
+    .ai-chat-ui {
+      height: 50vh; /* Reduce height of chat UI */
+      padding: 10px; /* Reduce padding */
+      padding-top: 30px;
+    }
+  
+  
+  
+    .ai-chat-ui .message p {
+      font-size: 12px; /* Reduce font size of chat messages */
+    }
+  
+    .ai-chat-ui .recommended-questions button {
+      font-size: 10px; /* Reduce font size of suggested responses */
+      padding: 3px 7px; /* Adjust padding */
+    }
+  }
+  
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  .message {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .message.user {
+    justify-content: flex-end;
+    animation: fadeInRight 0.5s;
+  }
+  
+  .message.bot {
+    justify-content: flex-start;
+    animation: fadeInLeft 0.5s;
+  }
+  
+  .message p {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin: 0 10px;
+    font-size: 14px;
+  }
+  
+  .message.user p {
+    background-color: #007bff;
+    color: #fff;
+    text-align: right;
+  }
+  
+  .message.bot p {
+    background-color: #f1f1f1;
+    color: #333;
+    text-align: left;
+  }
+  
+  .ai-icon, .user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .input-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #333;
+    position: relative;
+  }
+  
+  .input-bar input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 16px;
+    background: #2c2c2c;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .input-bar button {
+    font-family: inherit;
+    font-size: 16px;
+    background: royalblue;
+    color: white;
+    padding: 0.7em 1em;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  
+  .recommended-questions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .recommended-questions button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .recommended-questions button:hover {
+    background: #0056b3;
+  }
+  
+  /* Animation adjustments */
+  @keyframes fly-1 {
+    from {
+      transform: translateY(0.1em);
+    }
+    to {
+      transform: translateY(-0.1em);
+    }
+  }
+  
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+  }
+  
+  .typing-indicator span {
+    width: 6px;
+    height: 6px;
+    margin: 0 2px;
+    background-color: #333;
+    border-radius: 50%;
+    display: inline-block;
+    animation: typing 1s infinite;
+  }
+  
+  .typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes typing {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
