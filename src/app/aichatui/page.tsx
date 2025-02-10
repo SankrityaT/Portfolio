@@ -34,7 +34,11 @@ const AIChatUI = () => {
     e.preventDefault();
 
     if (input.trim()) {
-      const userMessage = { text: input.trim(), sender: 'user', timestamp: new Date() };
+      const userMessage: ChatMessage = { 
+        text: input.trim(), 
+        sender: 'user', 
+        timestamp: new Date() 
+      };
       setMessages(prev => [...prev, userMessage]);
       const currentInput = input.trim();
       setInput('');
@@ -43,7 +47,6 @@ const AIChatUI = () => {
       try {
         // Convert chat messages to API format including the new message
         const apiMessages: Message[] = messages
-          .filter(msg => msg.sender !== 'system')
           .map(msg => ({
             role: msg.sender === 'user' ? 'user' : 'assistant',
             content: msg.text
@@ -75,7 +78,7 @@ const AIChatUI = () => {
 
         console.log('API Success Response:', responseData);
         
-        const botResponse = {
+        const botResponse: ChatMessage = {
           text: responseData.content,
           sender: 'bot',
           timestamp: new Date()
@@ -84,7 +87,7 @@ const AIChatUI = () => {
         setMessages(prev => [...prev, botResponse]);
       } catch (error) {
         console.error('Chat Error:', error);
-        const errorMessage = {
+        const errorMessage: ChatMessage = {
           text: error instanceof Error ? error.message : 'Sorry, I encountered an error. Please try again.',
           sender: 'bot',
           timestamp: new Date()

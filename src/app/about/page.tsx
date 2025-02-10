@@ -29,7 +29,7 @@ export default function About() {
       content: 'Hi! I\'m Sankritya\'s AI assistant. Feel free to ask me anything about his background, projects, or interests!'
     }
   ]);
-  const chatContainerRef = useRef(null);
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (inView) {
@@ -43,35 +43,41 @@ export default function About() {
     }
   }, [chatMessages]);
 
-  const handleSendMessage = async (e) => {
+  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!message.trim() || isLoading) return;
 
-    const userMessage = message.trim();
+    const newMessage = { role: 'user', content: message.trim() };
     setMessage('');
+    setChatMessages(prev => [...prev, newMessage]);
     setIsLoading(true);
-
-    setChatMessages(prev => [...prev, { role: 'user', content: userMessage }]);
 
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          messages: [...chatMessages, { role: 'user', content: userMessage }]
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [...chatMessages, newMessage],
         }),
       });
 
-      if (!response.ok) throw new Error('Failed to get response');
+      if (!response.ok) {
+        throw new Error('Failed to get response');
+      }
 
       const data = await response.json();
-      setChatMessages(prev => [...prev, { role: 'assistant', content: data.content }]);
+      setChatMessages(prev => [...prev, data]);
     } catch (error) {
       console.error('Error:', error);
-      setChatMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: 'Sorry, I encountered an error. Please try again.' 
-      }]);
+      setChatMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: 'Sorry, I encountered an error. Please try again.',
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
